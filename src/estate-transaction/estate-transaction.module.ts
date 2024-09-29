@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { EstateTransactionUsecase } from './estate-transaction.usecase';
-import { EstateTransactionRepository } from 'src/estate-transaction/estate-transaction.repository';
 import { EstateTransactionController } from 'src/estate-transaction/estate-transaction.controller';
+import { ResasAPI } from 'src/estate-transaction/ResasAPI';
 
 @Module({
-  providers: [EstateTransactionUsecase, EstateTransactionRepository],
+  providers: [
+    EstateTransactionUsecase,
+    { provide: 'EstateTransactionRepository', useClass: ResasAPI },
+  ],
   controllers: [EstateTransactionController],
 })
 export class EstateTransactionModule {}
