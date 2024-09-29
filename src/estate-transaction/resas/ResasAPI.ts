@@ -3,7 +3,7 @@ import axios from 'axios';
 import { EstateTransactionRepository } from 'src/estate-transaction/estate-transaction.repository';
 import { EstateTransactionInfo } from 'src/estate-transaction/EstateTransactionInfo';
 import { GetEstateTransactionInfoRequest } from 'src/estate-transaction/GetEstateTransactionInfoRequest';
-import { ListCitiesResponse } from 'src/estate-transaction/ListCitiesResponse';
+import { ListCitiesResponse } from 'src/estate-transaction/resas/ListCitiesResponse';
 
 @Injectable()
 export class ResasAPI implements EstateTransactionRepository {
