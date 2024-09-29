@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import axios from 'axios';
+import { GetEstateTransactionInfoRequest } from 'src/estate-transaction/GetEstateTransactionInfoRequest';
 
 @Injectable()
 export class EstateTransactionRepository {
-  getEstateTransactionInfo(): string {
-    return 'DUMMY MESSAGE';
+  async getEstateTransactionInfo(req: GetEstateTransactionInfoRequest) {
+    const apiKey = process.env.RESAS_API_KEY;
+    const res = await axios.get(
+      `https://opendata.resas-portal.go.jp/api/v1/townPlanning/estateTransaction/bar`,
+      { headers: { 'X-API-KEY': apiKey }, params: req },
+    );
+    return res.data;
   }
 }

@@ -12,3 +12,7 @@ export const GetEstateTransactionInfoRequest = z.object({
     z.literal('5'),
   ]),
 });
+
+export type GetEstateTransactionInfoRequest = z.infer<
+  typeof GetEstateTransactionInfoRequest
+>;
