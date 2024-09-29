@@ -15,6 +15,7 @@ export class ResasAPI implements EstateTransactionRepository {
       { headers: { 'X-API-KEY': apiKey }, params: { prefCode: req.prefCode } },
     );
     const cities = ListCitiesResponse.parse(listCitiesResponse.data).result;
+    // 都道府県内に存在しない都市を指定している場合はエラー
     if (!cities.some((c) => c.cityCode === req.cityCode))
       throw new HttpException('CITY_CODE_MISMATCH', 400);
 
