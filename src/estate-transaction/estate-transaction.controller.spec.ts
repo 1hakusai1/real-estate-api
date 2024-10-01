@@ -9,9 +9,9 @@ describe('リクエストパラメータのバリデーションのテスト', (
   mockUsecase.getEstateTransactionInfo.mockResolvedValue({
     message: null,
     result: {
-      prefCode: 1,
+      prefCode: 13,
       prefName: '東京都',
-      cityCode: '1',
+      cityCode: '13101',
       cityName: '千代田区',
       displayType: '1',
       years: [{ year: 2009, value: 1000000 }],
@@ -40,9 +40,9 @@ describe('リクエストパラメータのバリデーションのテスト', (
     expect(response).toEqual({
       message: null,
       result: {
-        prefCode: 1,
+        prefCode: 13,
         prefName: '東京都',
-        cityCode: '1',
+        cityCode: '13101',
         cityName: '千代田区',
         displayType: '1',
         years: [{ year: 2009, value: 1000000 }],
