@@ -71,6 +71,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/.eslintrc.js"
+    ],
     "testEnvironment": "node"
   }
 }
