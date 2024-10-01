@@ -61,4 +61,15 @@ describe('EstateTransactionUsecase', () => {
       },
     });
   });
+
+  it('cityCodeが-の場合はバリデーションを行わない', async () => {
+    await expect(
+      usecase.getEstateTransactionInfo({
+        prefCode: 13,
+        cityCode: '13101',
+        year: 2015,
+        displayType: '1',
+      }),
+    ).resolves.not.toThrow();
+  });
 });
