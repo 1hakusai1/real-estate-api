@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { EstateTransactionRepository } from 'src/estate-transaction/estate-transaction.repository';
 import { EstateTransactionInfo } from 'src/estate-transaction/EstateTransactionInfo';
@@ -7,17 +7,21 @@ import { ListCitiesResponse } from 'src/estate-transaction/resas/ListCitiesRespo
 
 @Injectable()
 export class ResasAPI implements EstateTransactionRepository {
+  async listCityCodes(prefCode: number) {
+    const apiKey = process.env.RESAS_API_KEY;
+    const response = await axios.get(
+      'https://opendata.resas-portal.go.jp/api/v1/cities',
+      {
+        headers: { 'X-API-KEY': apiKey },
+        params: { prefCode },
+      },
+    );
+    const cities = ListCitiesResponse.parse(response.data).result;
+    return cities.map((c) => c.cityCode);
+  }
+
   async getEstateTransactionInfo(req: GetEstateTransactionInfoRequest) {
     const apiKey = process.env.RESAS_API_KEY;
-
-    const listCitiesResponse = await axios.get(
-      'https://opendata.resas-portal.go.jp/api/v1/cities',
-      { headers: { 'X-API-KEY': apiKey }, params: { prefCode: req.prefCode } },
-    );
-    const cities = ListCitiesResponse.parse(listCitiesResponse.data).result;
-    // 都道府県内に存在しない都市を指定している場合はエラー
-    if (!cities.some((c) => c.cityCode === req.cityCode))
-      throw new HttpException('CITY_CODE_MISMATCH', 400);
 
     const res = await axios.get(
       `https://opendata.resas-portal.go.jp/api/v1/townPlanning/estateTransaction/bar`,

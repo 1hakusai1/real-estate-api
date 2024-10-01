@@ -2,11 +2,11 @@ import { Test } from '@nestjs/testing';
 import mock, { MockProxy } from 'jest-mock-extended/lib/Mock';
 import { EstateTransactionController } from 'src/estate-transaction/estate-transaction.controller';
 import { EstateTransactionModule } from 'src/estate-transaction/estate-transaction.module';
-import { EstateTransactionRepository } from 'src/estate-transaction/estate-transaction.repository';
+import { EstateTransactionUsecase } from 'src/estate-transaction/estate-transaction.usecase';
 
 describe('リクエストパラメータのバリデーションのテスト', () => {
-  const mockRepository: MockProxy<EstateTransactionRepository> = mock();
-  mockRepository.getEstateTransactionInfo.mockResolvedValue({
+  const mockUsecase: MockProxy<EstateTransactionUsecase> = mock();
+  mockUsecase.getEstateTransactionInfo.mockResolvedValue({
     message: null,
     result: {
       prefCode: 1,
@@ -23,8 +23,8 @@ describe('リクエストパラメータのバリデーションのテスト', (
     const app = await Test.createTestingModule({
       imports: [EstateTransactionModule],
     })
-      .overrideProvider('EstateTransactionRepository')
-      .useValue(mockRepository)
+      .overrideProvider(EstateTransactionUsecase)
+      .useValue(mockUsecase)
       .compile();
     controller = app.get(EstateTransactionController);
   });

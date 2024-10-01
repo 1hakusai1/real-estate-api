@@ -2,6 +2,8 @@ import { EstateTransactionInfo } from 'src/estate-transaction/EstateTransactionI
 import { GetEstateTransactionInfoRequest } from 'src/estate-transaction/GetEstateTransactionInfoRequest';
 
 export interface EstateTransactionRepository {
+  listCityCodes: (prefCode: number) => Promise<string[]>;
+
   getEstateTransactionInfo: (
     req: GetEstateTransactionInfoRequest,
   ) => Promise<EstateTransactionInfo>;
